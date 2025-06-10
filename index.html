@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Selamat Datang</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #4A90E2, #50E3C2);
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+    }
+    .welcome-container {
+      max-width: 600px;
+      padding: 2rem;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      animation: fadeInUp 1s ease-out forwards;
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+    p { font-size: 1.2rem; margin-bottom: 2rem; }
+    a.button {
+      background: #fff;
+      color: #4A90E2;
+      padding: 0.8rem 2rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      opacity: 0;
+      transform: scale(0.8);
+      pointer-events: none;
+      transition: all 0.5s ease;
+    }
+    a.button.show {
+      opacity: 1;
+      transform: scale(1);
+      pointer-events: auto;
+    }
+    a.button:hover {
+      background: #e6e6e6;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <div class="welcome-container">
+    <h1 id="typed-title"></h1>
+    <p id="typed-desc"></p>
+    <a id="cta-button" href="beranda.html" class="button">Lihat Layanan</a>
+  </div>
+
+  <script>
+    const texts = [
+      { id: "typed-title", content: "Halo, Selamat Datang!" },
+      { id: "typed-desc", content: "Butuh bantuan penulisan yang cepat dan berkualitas? Kami siap membantu Anda!" }
+    ];
+
+    let currentText = 0;
+    let charIndex = 0;
+
+    function typeAll() {
+      if (currentText < texts.length) {
+        const el = document.getElementById(texts[currentText].id);
+        if (charIndex < texts[currentText].content.length) {
+          el.textContent += texts[currentText].content.charAt(charIndex);
+          charIndex++;
+          setTimeout(typeAll, 50);
+        } else {
+          charIndex = 0;
+          currentText++;
+          setTimeout(typeAll, 500);
+        }
+      } else {
+        document.getElementById("cta-button").classList.add("show");
+      }
+    }
+
+    typeAll();
+  </script>
+</body>
+</html>
